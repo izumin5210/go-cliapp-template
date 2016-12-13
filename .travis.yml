@@ -3,8 +3,12 @@ language: go
 go:
   - 1.7
 
+before_install:
+  - go get github.com/mattn/goveralls
+
 install:
   - make deps
 
 script:
   - make test-all
+  - goveralls -coverprofile=cover.out -service travis-ci -repotoken $COVERALLS_TOKEN
