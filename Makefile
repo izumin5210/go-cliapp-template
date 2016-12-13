@@ -21,7 +21,7 @@ test-all: test test-race vet lint
 
 .PHONY: test
 test:
-	go test -v -timeout=30s -parallel=4 ./...
+	go test -v -covermode=count -coverprofile=cover.out -timeout=30s -parallel=4 ./...
 
 .PHONY: test-race
 test-race:
