@@ -5,6 +5,7 @@ go:
 
 before_install:
   - go get github.com/mattn/goveralls
+  - go get github.com/tcnksm/ghr
 
 install:
   - make deps
@@ -12,3 +13,8 @@ install:
 script:
   - make test-all
   - goveralls -coverprofile=cover.out -service travis-ci -repotoken $COVERALLS_TOKEN
+
+after_success:
+  - test $TRAVIS_BRANCH = "master" &&
+    make package &&
+    ghr --username $GITHUB_USER --token $GITHUB_TOKEN --replace --prerelease --debug pre-release pkg/
